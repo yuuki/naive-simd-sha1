@@ -1,0 +1,24 @@
+CC		= gcc
+CFLAGS	= -Wall -Wextra -pg -msse -msse2 -msse3 -msse4.2
+
+TARGET	= sha1
+OBJS	= sha1.o sha1test.o
+TIME	= sha1time
+TOBJS	= sha1.o sha1time.o
+
+all: $(TARGET) $(TIME) 
+
+$(TARGET): $(OBJS)
+	$(CC) $(CFLAGS) $(OBJS) -o $@
+
+time: $(TIME)
+
+$(TIME): $(TOBJS)
+	$(CC) $(CFLAGS) $(TOBJS) -o $@
+
+.c.o:
+	$(CC) $(CFLAGS) -c $<
+
+clean:
+	rm -f ./*.o
+	rm -f sha1
